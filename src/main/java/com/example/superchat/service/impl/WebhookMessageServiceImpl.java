@@ -4,6 +4,7 @@ import com.example.superchat.dto.MessageDto;
 import com.example.superchat.entity.Channel;
 import com.example.superchat.entity.Contact;
 import com.example.superchat.entity.Message;
+import com.example.superchat.entity.enums.ChannelType;
 import com.example.superchat.service.TextTransformationService;
 import com.example.superchat.service.WebhookMessageService;
 import com.example.superchat.service.db.ChannelDbService;
@@ -12,6 +13,8 @@ import com.example.superchat.service.db.MessageDbService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import static com.example.superchat.entity.enums.ChannelType.getEnumTypeByString;
 
 @Slf4j
 @Service
@@ -25,12 +28,13 @@ public class WebhookMessageServiceImpl implements WebhookMessageService {
 
     @Override
     public void receiveMessage(MessageDto messageDto) {
+        var channelType = getEnumTypeByString(messageDto.getChannelType());
         var channel = contactDbService.findContactByEmail(messageDto.getEmail())
                 .map(contact ->
-                        channelDbService.getChannelByContactAndTypeOrCreateNew(contact, messageDto.getChannelType()))
+                        channelDbService.getChannelByContactAndTypeOrCreateNew(contact, channelType))
                 .orElseGet(() -> {
                     var contact = contactDbService.save(new Contact(messageDto.getName(), messageDto.getEmail()));
-                    return channelDbService.save(new Channel(contact, messageDto.getChannelType()));
+                    return channelDbService.save(new Channel(contact, channelType));
                 });
 
         var transformedText = textTransformationService.transform(messageDto.getText(), messageDto.getName(), messageDto.getEmail());

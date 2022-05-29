@@ -2,6 +2,7 @@ package com.example.superchat.service.impl;
 
 import com.example.superchat.dto.MessageDto;
 import com.example.superchat.entity.Message;
+import com.example.superchat.entity.enums.ChannelType;
 import com.example.superchat.mapper.MessageMapper;
 import com.example.superchat.service.MessageService;
 import com.example.superchat.service.TextTransformationService;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.example.superchat.entity.enums.ChannelType.getEnumTypeByString;
 
 @Slf4j
 @Service
@@ -31,7 +34,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public void sendMessage(MessageDto messageDto) {
         var contact = contactDbService.getContactByEmail(messageDto.getEmail());
-        var channel = channelDbService.getChannelByContactAndTypeOrCreateNew(contact, messageDto.getChannelType());
+        var channel = channelDbService.getChannelByContactAndTypeOrCreateNew(contact, getEnumTypeByString(messageDto.getChannelType()));
         var transformedText = textTransformationService.transform(messageDto.getText(), contact.getName(), contact.getEmail());
         messageDbService.save(new Message(contact, channel, transformedText));
 
@@ -40,7 +43,8 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<MessageDto> getAllByEmail(String email) {
-        return messageDbService.findAllByContactEmail(email).stream()
+        return messageDbService.findAllByContactEmail(email)
+                .stream()
                 .map(messageMapper::toDto)
                 .collect(Collectors.toList());
     }

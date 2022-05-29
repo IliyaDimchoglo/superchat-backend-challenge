@@ -53,7 +53,7 @@ class MessageServiceTest {
         var email = "email@gmail.com";
         var name = "name";
         var text = "text";
-        var messageDto = new MessageDto(name, email, ChannelType.INTERNAL, text);
+        var messageDto = new MessageDto(name, email, ChannelType.INTERNAL.toString(), text);
         var contact = new Contact(name, email);
         var channel = new Channel(contact, ChannelType.INTERNAL);
 
@@ -73,7 +73,7 @@ class MessageServiceTest {
         var email = "email@gmail.com";
         var name = "name";
         var text = "text";
-        var messageDto = new MessageDto(name, email, ChannelType.INTERNAL, text);
+        var messageDto = new MessageDto(name, email, ChannelType.INTERNAL.toString(), text);
 
         when(contactDbService.getContactByEmail(email)).thenThrow(new RestResponseException(HttpStatus.NOT_FOUND, "Contact not found"));
 
@@ -96,7 +96,7 @@ class MessageServiceTest {
         var contact = new Contact(name, email);
         var channel = new Channel(contact, ChannelType.INTERNAL);
         var message = new Message(contact, channel, text);
-        var messageDto = new MessageDto(name, email, ChannelType.INTERNAL, text);
+        var messageDto = new MessageDto(name, email, ChannelType.INTERNAL.toString(), text);
 
         when(messageDbService.findAllByContactEmail(email)).thenReturn(Collections.singletonList(message));
         when(messageMapper.toDto(message)).thenReturn(messageDto);

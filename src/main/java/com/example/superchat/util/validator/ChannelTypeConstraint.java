@@ -15,7 +15,7 @@ import static java.lang.annotation.ElementType.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ChannelTypeConstraint {
 
-    String message() default "Channel type is not valid.";
+    String message() default "not valid.";
 
     Class<?>[] groups() default {};
 

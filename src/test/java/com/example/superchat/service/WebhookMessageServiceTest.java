@@ -46,7 +46,7 @@ class WebhookMessageServiceTest {
         var email = "email@gmail.com";
         var name = "name";
         var text = "text";
-        var messageDto = new MessageDto(name, email, ChannelType.WHATS_APP, text);
+        var messageDto = new MessageDto(name, email, ChannelType.WHATS_APP.toString(), text);
 
         when(contactDbService.findContactByEmail(email)).thenReturn(contact);
         when(channelDbService.save(any())).thenReturn(new Channel());

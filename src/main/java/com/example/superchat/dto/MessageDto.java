@@ -1,6 +1,6 @@
 package com.example.superchat.dto;
 
-import com.example.superchat.entity.enums.ChannelType;
+import com.example.superchat.util.validator.ChannelTypeConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -22,8 +21,8 @@ public class MessageDto {
     @Email(message = "Add email")
     private String email;
 
-    @NotNull(message = "Add channel type")
-    private ChannelType channelType;
+    @ChannelTypeConstraint
+    private String channelType;
 
     @NotBlank(message = "Add text")
     private String text;

@@ -31,6 +31,7 @@ create table if not exists messages (
     updated_time       timestamp,
     contact_id UUID not null,
     channel_id UUID not null,
+    text varchar not  null,
     foreign key (contact_id) references contacts,
     foreign key (channel_id) references channels
 );
