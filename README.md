@@ -1,21 +1,21 @@
 # Getting Started
 
-##Run application
+## Run application
 
 ````
 * mvn clean install 
 * docker compose up --build
 * application will start at port 8080
 ````
-##Usage
+## Usage
 
-###Variables
+### Variables
 * channel types: INTERNAL, GOOGLE, WHATS_APP;
 * email: {random}@gmail.com
 * name: {random}
 * text: ${name}, ${email}, ${BitCoin}
 
-###Create contact: 
+### Create contact: 
 
     curl --location --request POST 'http://localhost:8080/contacts' \
     --header 'Content-Type: application/json' \
@@ -24,12 +24,12 @@
     "email":"{email}"
     }'
 
-###Get list of contacts: 
+### Get list of contacts: 
     
     curl --location --request GET 'http://localhost:8080/contacts' \
     --data-raw ''
 
-###Send message:
+### Send message:
     
     curl --location --request POST 'http://localhost:8080/messages' \
     --header 'Content-Type: application/json' \
@@ -40,11 +40,11 @@
     "text" : "hello ${name} ${email} ${BitCoin}"
     }'
 
-###Get list of messages:
+### Get list of messages:
     
     curl --location --request GET 'http://localhost:8080/messages/{email}
 
-###Receive webhook message
+### Receive webhook message
     
     curl --location --request POST 'http://localhost:8080/webhook/messages' \
     --header 'Content-Type: application/json' \
