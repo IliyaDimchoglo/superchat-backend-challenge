@@ -106,7 +106,7 @@ class MessageServiceTest {
         List<MessageDto> messageDtos = messageService.getAllByEmail(email);
 
         //then
-        assertEquals("INTERNAL", messageDtos.get(0).getChannelType().toString());
+        assertEquals("INTERNAL", messageDtos.get(0).getChannelType());
         assertEquals(name, messageDtos.get(0).getName());
         assertEquals(email, messageDtos.get(0).getEmail());
         assertEquals(text, messageDtos.get(0).getText());
