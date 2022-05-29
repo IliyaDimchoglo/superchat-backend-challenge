@@ -13,6 +13,7 @@
 * channel types: INTERNAL, GOOGLE, WHATS_APP;
 * email: {random}@gmail.com
 * name: {random}
+* text: ${name}, ${email}, ${BitCoin}
 
 ###Create contact: 
 
