@@ -21,7 +21,7 @@
     --header 'Content-Type: application/json' \
     --data-raw '{
     "name": "{name}",
-    "email":"{email@gmail.com}"
+    "email":"{email}"
     }'
 
 ###Get list of contacts: 
