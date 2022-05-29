@@ -39,6 +39,6 @@ public class WebhookMessageServiceImpl implements WebhookMessageService {
 
         var transformedText = textTransformationService.transform(messageDto.getText(), messageDto.getName(), messageDto.getEmail());
         messageDbService.save(new Message(channel.getContact(), channel, transformedText));
-        log.info("Message successfully received from {}. email {}", messageDto.getChannelType(), messageDto.getEmail());
+        log.info("Webhook message successfully received. Channel type {}. email {}", messageDto.getChannelType(), messageDto.getEmail());
     }
 }
