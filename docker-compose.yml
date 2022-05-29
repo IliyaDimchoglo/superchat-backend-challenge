@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  supperchat-app:
+    image: supperchat
+    build: .
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/postgres-db?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+
+  database:
+    container_name: postgres-db
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=iamgroot
+      - POSTGRES_USER=root
+      - POSTGRES_DB=postgres-db
+    image: postgres:11.3-alpine
