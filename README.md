@@ -36,7 +36,7 @@
     --data-raw '{
     "name": "{name}",
     "email": "{email}",
-    "channelType": "INTERNAL",
+    "channelType": {ChannelType}",
     "text" : "hello ${name} ${email} ${BitCoin}"
     }'
 
@@ -51,6 +51,6 @@
     --data-raw '{
     "name": "{name}",
     "email": "{email}",
-    "channelType": "WHATS_APP",
-    "text" : "hello ${name} ${BitCoin}"
+    "channelType": "{ChannelType}",
+    "text" : "hello ${name} ${email} ${BitCoin}"
     }'
