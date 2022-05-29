@@ -1,6 +1,5 @@
 package com.example.superchat.config;
 
-import org.apache.commons.text.StringSubstitutor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -16,7 +15,7 @@ import java.util.List;
 public class AppConfiguration {
 
     @Bean
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
         var restTemplate = new RestTemplate();
         List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
@@ -24,12 +23,5 @@ public class AppConfiguration {
         messageConverters.add(converter);
         restTemplate.setMessageConverters(messageConverters);
         return restTemplate;
-    }
-
-    @Bean
-    public StringSubstitutor stringSubstitutor(){
-        StringSubstitutor stringSubstitutor = new StringSubstitutor();
-        stringSubstitutor.setEnableUndefinedVariableException(true);
-        return stringSubstitutor;
     }
 }
