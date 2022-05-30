@@ -28,7 +28,7 @@ public class MessageManagerImpl implements MessageSenderManager {
         try {
             map.get(channelType).sendMessage(text, email);
         } catch (Exception e) {
-            log.error("Channel type not found by message Manager, ex {}", e.getMessage());
+            log.error("Message manager can't handle Channel type:{}, ex: {}", channelType, e.getMessage());
         }
     }
 }
