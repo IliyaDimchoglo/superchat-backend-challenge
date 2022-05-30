@@ -1,10 +1,11 @@
 package com.example.superchat.service.strategy.manager.impl;
 
 import com.example.superchat.entity.enums.ChannelType;
+import com.example.superchat.exception.RestResponseException;
 import com.example.superchat.service.strategy.MessageStrategy;
-import com.example.superchat.service.strategy.impl.InternalMessageStrategy;
 import com.example.superchat.service.strategy.manager.MessageSenderManager;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class MessageManagerImpl implements MessageSenderManager {
             map.get(channelType).sendMessage(text, email);
         } catch (Exception e) {
             log.error("Message manager can't handle Channel type:{}, ex: {}", channelType, e.getMessage());
+            throw new RestResponseException(HttpStatus.NOT_FOUND, "Channel type no supported");
         }
     }
 }
