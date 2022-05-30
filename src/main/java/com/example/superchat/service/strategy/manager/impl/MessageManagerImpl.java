@@ -2,6 +2,7 @@ package com.example.superchat.service.strategy.manager.impl;
 
 import com.example.superchat.entity.enums.ChannelType;
 import com.example.superchat.service.strategy.MessageStrategy;
+import com.example.superchat.service.strategy.impl.InternalMessageStrategy;
 import com.example.superchat.service.strategy.manager.MessageSenderManager;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,6 @@ public class MessageManagerImpl implements MessageSenderManager {
 
     @Override
     public void execute(ChannelType channelType, String text, String email) {
-        map.get(channelType).sendMessage(text, email);
+        map.getOrDefault(channelType, new InternalMessageStrategy()).sendMessage(text, email);
     }
 }
