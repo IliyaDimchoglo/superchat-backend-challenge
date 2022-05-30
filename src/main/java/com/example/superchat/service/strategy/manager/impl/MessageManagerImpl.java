@@ -4,6 +4,7 @@ import com.example.superchat.entity.enums.ChannelType;
 import com.example.superchat.service.strategy.MessageStrategy;
 import com.example.superchat.service.strategy.impl.InternalMessageStrategy;
 import com.example.superchat.service.strategy.manager.MessageSenderManager;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.function.Function;
 
 import static java.util.stream.Collectors.toMap;
 
+@Slf4j
 @Component
 public class MessageManagerImpl implements MessageSenderManager {
 
@@ -23,6 +25,10 @@ public class MessageManagerImpl implements MessageSenderManager {
 
     @Override
     public void execute(ChannelType channelType, String text, String email) {
-        map.getOrDefault(channelType, new InternalMessageStrategy()).sendMessage(text, email);
+        try {
+            map.get(channelType).sendMessage(text, email);
+        } catch (Exception e) {
+            log.error("Channel type not found by message Manager, ex {}", e.getMessage());
+        }
     }
 }
